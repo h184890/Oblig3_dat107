@@ -1,11 +1,14 @@
 package database;
 
-import jakarta.persistence.*;
 import java.util.Scanner;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class Main {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("OvingJPA");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("personPersistenceUnit");
         EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
 
