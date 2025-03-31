@@ -5,8 +5,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +13,11 @@ public class AnsattDAO {
 
     public AnsattDAO() {
         try {
-            // Erstatt med dine egne databaseparametere
             String url = "jdbc:postgresql://ider-database.westeurope.cloudapp.azure.com:5433/h184890";
             String bruker = "h184890";
             String passord = "sander2122";
             connection = DriverManager.getConnection(url, bruker, passord);
-            connection.setAutoCommit(false); // For bedre transaksjonshåndtering
+            connection.setAutoCommit(false); 
         } catch (SQLException e) {
             System.err.println("Feil ved opprettelse av databaseforbindelse: " + e.getMessage());
         }
@@ -161,6 +158,7 @@ public class AnsattDAO {
             return false;
         }
     }
+    
 
     private Ansatt mapResultSetTilAnsatt(ResultSet rs) throws SQLException {
         return new Ansatt(
@@ -174,4 +172,36 @@ public class AnsattDAO {
                 rs.getInt("avdeling_id")
         );
     }
+ // I AnsattDAO.java
+
+ // Oppdater avdeling for en ansatt
+ public boolean oppdaterAvdeling(int ansattId, int nyAvdelingId) {
+     String sql = "UPDATE oblig.Ansatt SET avdeling_id = ? WHERE ansatt_id = ?";
+     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+         stmt.setInt(1, nyAvdelingId);
+         stmt.setInt(2, ansattId);
+         int rowsAffected = stmt.executeUpdate();
+         return rowsAffected > 0;
+     } catch (SQLException e) {
+         System.err.println("Feil ved oppdatering av avdeling: " + e.getMessage());
+         return false;
+     }
+ }
+
+ // Hent ansatte for en spesifikk avdeling
+ public List<Ansatt> hentAnsatteForAvdeling(int avdelingId) {
+     List<Ansatt> ansatte = new ArrayList<>();
+     String sql = "SELECT * FROM oblig.Ansatt WHERE avdeling_id = ? ORDER BY ansatt_id";
+     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+         stmt.setInt(1, avdelingId);
+         try (ResultSet rs = stmt.executeQuery()) {
+             while (rs.next()) {
+                 ansatte.add(mapResultSetTilAnsatt(rs));
+             }
+         }
+     } catch (SQLException e) {
+         System.err.println("Feil ved henting av ansatte for avdeling: " + e.getMessage());
+     }
+     return ansatte;
+ }
 }
