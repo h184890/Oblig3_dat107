@@ -286,8 +286,7 @@ import java.util.Scanner;
 	                    System.out.print("Beskrivelse: ");
 	                    String beskrivelse = scanner.nextLine();
 	                    
-	                    Prosjekt nyttProsjekt = new Prosjekt(0, navn, beskrivelse, 
-	                                                        new Date(System.currentTimeMillis()), "Aktiv");
+	                    Prosjekt nyttProsjekt = new Prosjekt(0, navn, beskrivelse);
 	                    if (prosjektDAO.leggTilProsjekt(nyttProsjekt)) {
 	                        System.out.println("Nytt prosjekt lagt til med ID: " + nyttProsjekt.getProsjektId());
 	                    } else {

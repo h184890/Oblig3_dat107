@@ -9,7 +9,7 @@ public class Prosjekt {
     private Date startDato;
     private String status;
 
-    public Prosjekt(int prosjektId, String navn, String beskrivelse, Date startDato, String status) {
+    public Prosjekt(int prosjektId, String navn, String beskrivelse) {
         this.prosjektId = prosjektId;
         this.navn = navn;
         this.beskrivelse = beskrivelse;
@@ -35,8 +35,6 @@ public class Prosjekt {
                 "prosjektId=" + prosjektId +
                 ", navn='" + navn + '\'' +
                 ", beskrivelse='" + beskrivelse + '\'' +
-                ", startDato=" + startDato +
-                ", status='" + status + '\'' +
                 '}';
     }
 }

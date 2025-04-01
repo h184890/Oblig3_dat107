@@ -27,9 +27,7 @@ public class ProsjektDAO {
                 prosjekter.add(new Prosjekt(
                     rs.getInt("prosjekt_id"),
                     rs.getString("navn"),
-                    rs.getString("beskrivelse"),
-                    rs.getDate("start_dato"),
-                    rs.getString("status")
+                    rs.getString("beskrivelse")
                 ));
             }
         } catch (SQLException e) {
@@ -69,9 +67,7 @@ public class ProsjektDAO {
                     return new Prosjekt(
                         rs.getInt("prosjekt_id"),
                         rs.getString("navn"),
-                        rs.getString("beskrivelse"),
-                        rs.getDate("start_dato"),
-                        rs.getString("status")
+                        rs.getString("beskrivelse")
                     );
                 }
             }
